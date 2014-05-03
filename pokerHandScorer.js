@@ -1,6 +1,8 @@
 function pokerHandScorer() {
+    var hand = new Array(5);
+
 	this.scoreHand = function(cards) {
-		var hand = this.createHand(cards);
+		hand = this.createHand(cards);
 	
 		if (isPair(hand))
 			return "One Pair";
@@ -23,14 +25,30 @@ function pokerHandScorer() {
 	
 	function isPair(hand) {
 		for(var i = 0; i < hand.length; i++) {
-			var card = hand[i];
-			
-			for(var j = 0; j < hand.length; j++) {
-				if (i != j)
-					if (card.rank == hand[j].rank)
-						return true;
-			}
+		    if (GetNumberOfMatches(hand[i]) > 0)
+		        return true;
 		}
+
+		return false;
+	}
+
+	function GetNumberOfMatches(card) {
+	    var matches = 0;
+
+	    for (var i = 0; i < hand.length; i++) {
+	        if (CardsAreNotTheSame(card, hand[i]) && CardsAreTheSameRank(card, hand[i]))
+	            matches++;
+	    }
+
+	    return matches;
+	}
+
+	function CardsAreNotTheSame(card1, card2) {
+	    return card1.rank != card2.rank || card1.suit != card2.suit
+	}
+
+	function CardsAreTheSameRank(card1, card2) {
+	    return card1.rank == card2.rank;
 	}
 }
 
