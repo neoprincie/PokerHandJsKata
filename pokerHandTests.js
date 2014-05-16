@@ -33,3 +33,13 @@ test("3H 2H 1H 4H 5H just returns flush", function () {
     var scorer = new pokerHandScorer();
     equal(scorer.scoreHand("3H 9H 1H 4H 5H"), "Flush");
 });
+
+test("3H 3S 3C 2H 2S just returns full house", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("3H 3S 3C 2H 2S"), "Full House");
+});
+
+test("8C 3H 8D 8S 8H just returns four of a kind", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("8C 3H 8D 8S 8H"), "Four of a Kind");
+});

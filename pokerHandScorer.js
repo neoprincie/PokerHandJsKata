@@ -4,6 +4,10 @@ function pokerHandScorer() {
 	this.scoreHand = function(cards) {
 		hand = this.createHand(cards);
 	
+		if (isFourOfAKind())
+		    return "Four of a Kind";
+		if (isFullHouse())
+		    return "Full House";
 		if (isFlush())
 		    return "Flush";
 		if (isStraight())
@@ -33,7 +37,7 @@ function pokerHandScorer() {
 	
 	function isPair() {
 		for(var i = 0; i < hand.length; i++) {
-		    if (getNumberOfMatches(hand[i], i) == 1)
+		    if (getTotalNumberOfMatches(hand[i]) == 1)
 		        return true;
 		}
 
@@ -43,19 +47,25 @@ function pokerHandScorer() {
 	function isTwoPair() {
 	    var numberOfPairs = 0;
 
-	    for (var i = 0; i < hand.length; i++) {
+	    for (var i = 0; i < hand.length; i++)
 	        if (getNumberOfMatches(hand[i], i) == 1)
 	            numberOfPairs++;
-	    }
 
 	    return numberOfPairs == 2;
 	}
 
 	function isThreeOfAKind() {
-	    for (var i = 0; i < hand.length; i++) {
+	    for (var i = 0; i < hand.length; i++)
 	        if (getNumberOfMatches(hand[i], i) == 2)
 	            return true;
-	    }
+
+	    return false;
+	}
+
+	function isFourOfAKind() {
+	    for (var i = 0; i < hand.length; i++)
+	        if (getNumberOfMatches(hand[i], i) == 3)
+	            return true;
 
 	    return false;
 	}
@@ -77,10 +87,24 @@ function pokerHandScorer() {
 	    return true;
 	}
 
+	function isFullHouse() {
+	    return isThreeOfAKind() && isPair();
+	}
+
 	function getNumberOfMatches(card, startIndex) {
 	    var matches = 0;
 
 	    for (var i = startIndex; i < hand.length; i++)
+	        if (cardsAreNotTheSame(card, hand[i]) && cardsAreTheSameRank(card, hand[i]))
+	            matches++;
+
+	    return matches;
+	}
+
+	function getTotalNumberOfMatches(card) {
+	    var matches = 0;
+
+	    for (var i = 0; i < hand.length; i++)
 	        if (cardsAreNotTheSame(card, hand[i]) && cardsAreTheSameRank(card, hand[i]))
 	            matches++;
 
