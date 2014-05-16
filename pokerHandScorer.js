@@ -4,6 +4,8 @@ function pokerHandScorer() {
 	this.scoreHand = function(cards) {
 		hand = this.createHand(cards);
 	
+		if (isFlush())
+		    return "Flush";
 		if (isStraight())
 		    return "Straight";
 		if (isThreeOfAKind())
@@ -65,6 +67,14 @@ function pokerHandScorer() {
 	        return true;
 
 	    return false;
+	}
+
+	function isFlush() {
+	    for (var i = 0; i < hand.length - 1; i++)
+	        if (hand[i].suit != hand[i + 1].suit)
+	            return false;
+
+	    return true;
 	}
 
 	function getNumberOfMatches(card, startIndex) {

@@ -28,3 +28,8 @@ test("3C 2H 1D 4H 5D just returns straight", function () {
     var scorer = new pokerHandScorer();
     equal(scorer.scoreHand("3C 2H 1D 4H 5D"), "Straight");
 });
+
+test("3H 2H 1H 4H 5H just returns flush", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("3H 9H 1H 4H 5H"), "Flush");
+});
