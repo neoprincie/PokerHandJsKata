@@ -57,3 +57,8 @@ test("10C JH QD KH AD just returns straight", function () {
     var scorer = new pokerHandScorer();
     equal(scorer.scoreHand("10C JH QD KH AD"), "Straight");
 });
+
+test("2C 3H 4D 5H AD just returns straight", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("2C 3H 4D 5H AD"), "Straight");
+});
