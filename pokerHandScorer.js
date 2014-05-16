@@ -4,6 +4,8 @@ function pokerHandScorer() {
 	this.scoreHand = function(cards) {
 		hand = this.createHand(cards);
 	
+		if (isStraightFlush())
+		    return "Straight Flush";
 		if (isFourOfAKind())
 		    return "Four of a Kind";
 		if (isFullHouse())
@@ -89,6 +91,10 @@ function pokerHandScorer() {
 
 	function isFullHouse() {
 	    return isThreeOfAKind() && isPair();
+	}
+
+	function isStraightFlush() {
+	    return isStraight() && isFlush();
 	}
 
 	function getNumberOfMatches(card, startIndex) {

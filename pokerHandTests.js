@@ -43,3 +43,8 @@ test("8C 3H 8D 8S 8H just returns four of a kind", function () {
     var scorer = new pokerHandScorer();
     equal(scorer.scoreHand("8C 3H 8D 8S 8H"), "Four of a Kind");
 });
+
+test("3H 2H 1H 4H 5H just returns straight flush", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("3H 2H 1H 4H 5H"), "Straight Flush");
+});
