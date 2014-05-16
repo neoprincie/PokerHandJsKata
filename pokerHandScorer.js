@@ -1,8 +1,10 @@
 function pokerHandScorer() {
     var hand = new Array(5);
+    var cardRankings = {};
 
-	this.scoreHand = function(cards) {
-		hand = this.createHand(cards);
+    this.scoreHand = function (cards) {
+        setUpCardRankings();
+	    hand = createHand(cards);
 	
 		if (isStraightFlush())
 		    return "Straight Flush";
@@ -24,14 +26,21 @@ function pokerHandScorer() {
 		return "High Card";
 	}
 	
-	this.createHand = function(rawCards) {
+    function createHand(rawCards) {
 	    var cards = rawCards.split(" ");
 	    var hand = new Array(5);
-		
+
 	    for (var i = 0; i < cards.length; i++) {
-			hand[i] = new card();
-			hand[i].rank = cards[i].substring(0, 1);
-			hand[i].suit = cards[i].substring(1, 2);
+	        hand[i] = new card();
+
+	        if (cards[i].length == 3) {
+	            hand[i].rank = cards[i].substring(0, 2);
+	            hand[i].suit = cards[i].substring(2, 3);
+	        }
+	        else {
+	            hand[i].rank = cardRankings[cards[i].substring(0, 1)];
+	            hand[i].suit = cards[i].substring(1, 2);
+	        }
 		}
 		
 		return hand;
@@ -75,10 +84,12 @@ function pokerHandScorer() {
 	function isStraight() {
 	    hand.sort(function (a, b) { return parseFloat(a.rank) - parseFloat(b.rank) });
 
-	    if (hand[0].rank == hand[1].rank - 1 == hand[2].rank - 2 == hand[3].rank - 3 == hand[4].rank - 4)
-	        return true;
+	    for (var i = 0; i < hand.length - 1; i++) {
+	        if (hand[i].rank != (hand[i + 1].rank - 1))
+	            return false;
+	    }
 
-	    return false;
+	    return true;
 	}
 
 	function isFlush() {
@@ -123,6 +134,22 @@ function pokerHandScorer() {
 
 	function cardsAreTheSameRank(card1, card2) {
 	    return card1.rank == card2.rank;
+	}
+
+	function setUpCardRankings() {
+	    cardRankings["2"] = 2;
+	    cardRankings["3"] = 3;
+	    cardRankings["4"] = 4;
+	    cardRankings["5"] = 5;
+	    cardRankings["6"] = 6;
+	    cardRankings["7"] = 7;
+	    cardRankings["8"] = 8;
+	    cardRankings["9"] = 9;
+	    cardRankings["10"] = 10;
+	    cardRankings["J"] = 11;
+	    cardRankings["Q"] = 12;
+	    cardRankings["K"] = 13;
+	    cardRankings["A"] = 14;
 	}
 }
 

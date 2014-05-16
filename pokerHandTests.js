@@ -3,12 +3,6 @@ test( "1C 3H 5D 6S 8H just returns High Card", function() {
   equal( scorer.scoreHand("1C 3H 5D 6S 8H"), "High Card");
 });
 
-test( "8C 3H 5D 6S 8H just has a first element with rank 8", function() {
-  var scorer = new pokerHandScorer();
-  var hand = scorer.createHand("8C 3H 5D 6S 8H");
-  equal( hand[0].rank, 8);
-});
-
 test( "8C 3H 5D 6S 8H just returns One pair", function() {
   var scorer = new pokerHandScorer();
   equal( scorer.scoreHand("8C 3H 5D 6S 8H"), "One Pair");
@@ -24,9 +18,9 @@ test("8C 3H 8D 6S 8H just returns three of a kind", function () {
     equal(scorer.scoreHand("8C 3H 8D 6S 8H"), "Three of a Kind");
 });
 
-test("3C 2H 1D 4H 5D just returns straight", function () {
+test("3C 2H 6D 4H 5D just returns straight", function () {
     var scorer = new pokerHandScorer();
-    equal(scorer.scoreHand("3C 2H 1D 4H 5D"), "Straight");
+    equal(scorer.scoreHand("3C 7H 6D 4H 5D"), "Straight");
 });
 
 test("3H 2H 1H 4H 5H just returns flush", function () {
@@ -44,7 +38,22 @@ test("8C 3H 8D 8S 8H just returns four of a kind", function () {
     equal(scorer.scoreHand("8C 3H 8D 8S 8H"), "Four of a Kind");
 });
 
-test("3H 2H 1H 4H 5H just returns straight flush", function () {
+test("3H 2H 6H 4H 5H just returns straight flush", function () {
     var scorer = new pokerHandScorer();
-    equal(scorer.scoreHand("3H 2H 1H 4H 5H"), "Straight Flush");
+    equal(scorer.scoreHand("3H 2H 6H 4H 5H"), "Straight Flush");
+});
+
+test("10C 3H 5D 6S 10H just returns One pair", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("10C 3H 5D 6S 10H"), "One Pair");
+});
+
+test("3H 2H 10H 4H 5H just returns flush", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("3H 2H 10H 4H 5H"), "Flush");
+});
+
+test("10C JH QD KH AD just returns straight", function () {
+    var scorer = new pokerHandScorer();
+    equal(scorer.scoreHand("10C JH QD KH AD"), "Straight");
 });
